@@ -7,14 +7,20 @@ import csv
 import os
 from datetime import datetime
 
-#I need this to read from my current expenses file and write the correct expenses to the correct category
+# Set the CSV file path to the saves directory
+CSV_FILE = os.path.join('saves', 'spending.csv')
 
+# Ensure the saves directory exists
+if not os.path.exists('saves'):
+    os.makedirs('saves')
 
-CSV_FILE = 'spending.csv'
+# I need this to read from my current expenses file and write the correct expenses to the correct category
+
 
 # Check if the CSV file exists, if not, create it with headers
-def initialize_csv():
+def load_from_csv():
     if not os.path.exists(CSV_FILE):
+        print("Can't find spending.csv, creating a new one.")
         with open(CSV_FILE, mode='w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(['Date', 'Category', 'Description', 'Amount'])
@@ -26,13 +32,11 @@ def add_spending(date, category, description, amount):
 
 def main():
     print('--- Spending Tracker ---')
-    initialize_csv()
+    load_from_csv()
     while True:
-        date = input('Enter date (YYYY-MM-DD) [leave blank for today]: ')
-        if not date:
-            date = datetime.today().strftime('%Y-%m-%d')
-        category = input('Enter category (e.g., Food, Transport): ')
+        date = datetime.today().strftime('%Y-%m-%d')
         description = input('Enter description: ')
+        category = input('Enter category (e.g., Food, Transport): ') #category can implement a dropdown later. It can also automatically detect categories from description
         amount = input('Enter amount: ')
         try:
             amount = float(amount)
