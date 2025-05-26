@@ -1,10 +1,14 @@
 #Madhav Parappuveettil
-# Spending Tracker keeps track of daily spending
+#Spending Tracker keeps track of daily spending
+
 
 
 import csv
 import os
 from datetime import datetime
+
+#I need this to read from my current expenses file and write the correct expenses to the correct category
+
 
 CSV_FILE = 'spending.csv'
 
